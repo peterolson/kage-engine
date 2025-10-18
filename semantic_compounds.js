@@ -19,9 +19,10 @@ const groups = [
             { char: "川", eng: "river" },
             { char: "山", eng: "mountain" },
             { char: "石", eng: "rock" },
-            { char: "厂", eng: "cliff" },
+            { char: "厂", eng: "cliff", disableBottom: true },
             { char: "瓦", eng: "clay", disableTop: true },
             { char: "田", eng: "field" },
+            { char: "乇", eng: "grass" },
         ],
     },
     {
@@ -36,12 +37,9 @@ const groups = [
             { char: "隹", eng: "bird" },
             { char: "鸟", eng: "fowl" },
             { char: "虫", eng: "bug" },
-            { char: "象", eng: "elephant", disableTop: true },
-            { char: "龟", eng: "turtle", disableTop: true },
-            { char: "鹿", eng: "deer", disableTop: true },
-            { char: "鼠", eng: "rat", disableTop: true },
-            { char: "兔", eng: "rabbit", disableTop: true },
             { char: "龙", eng: "dragon", disableTop: true },
+            { char: "已", eng: "snake" },
+            { char: "虍", eng: "tiger" },
         ],
     },
     {
@@ -57,12 +55,117 @@ const groups = [
             { char: "首", eng: "head" },
             { char: "心", eng: "heart", disableTop: true },
             { char: "肉", eng: "flesh" },
-            { char: "冎", eng: "bone" },
             { char: "彡", eng: "hair" },
+            { char: "毛", eng: "fur" },
             { char: "爪", eng: "claw" },
             { char: "羽", eng: "feather" },
-            { char: "齿", eng: "tooth" },
+            { char: "牙", eng: "tooth" },
             { char: "舌", eng: "tongue" },
+            { char: "革", eng: "skin" },
+            { char: "贝", eng: "shell" },
+            { char: "囟", eng: "skull" },
+            { char: "角", eng: "horn" },
+        ],
+    },
+    {
+        group: "People",
+        chars: [
+            { char: "人", eng: "man" },
+            { char: "女", eng: "woman" },
+            { char: "子", eng: "son" },
+            { char: "儿", eng: "daughter" },
+            { char: "父", eng: "father" },
+            { char: "母", eng: "mother" },
+            { char: "王", eng: "king" },
+            { char: "士", eng: "sage" },
+            { char: "示", eng: "spirit" },
+            { char: "生", eng: "life" },
+        ],
+    },
+    {
+        group: "Adjectives",
+        chars: [
+            { char: "大", eng: "big" },
+            { char: "小", eng: "small" },
+            { char: "古", eng: "old" },
+            { char: "疒", eng: "sick" },
+            { char: "丑", eng: "ugly" },
+            { char: "甘", eng: "sweet" },
+            { char: "白", eng: "white" },
+            { char: "丰", eng: "lush" },
+        ],
+    },
+    {
+        group: "Food",
+        chars: [
+            { char: "禾", eng: "corn" },
+            { char: "米", eng: "rice" },
+            { char: "来", eng: "wheat" },
+            { char: "酉", eng: "wine" },
+            { char: "卤", eng: "salt" },
+            { char: "食", eng: "eat" },
+            { char: "皿", eng: "dish" },
+            { char: "豆", eng: "bean" },
+        ],
+    },
+    {
+        group: "Ideographs",
+        chars: [
+            { char: "上", eng: "up" },
+            { char: "下", eng: "down" },
+            { char: "中", eng: "mid" },
+            { char: "又", eng: "right" },
+            { char: "正", eng: "straight" },
+            { char: "非", eng: "not" },
+        ],
+    },
+    {
+        group: "Tools",
+        chars: [
+            { char: "刀", eng: "knife" },
+            { char: "勺", eng: "spoon" },
+            { char: "叉", eng: "fork" },
+            { char: "工", eng: "work" },
+            { char: "力", eng: "plow" },
+            { char: "弓", eng: "bow" },
+            { char: "矢", eng: "arrow" },
+            { char: "车", eng: "car" },
+            { char: "舟", eng: "boat" },
+            { char: "丁", eng: "nail" },
+            { char: "门", eng: "door" },
+            { char: "方", eng: "square" },
+            { char: "斗", eng: "ladle" },
+            { char: "斤", eng: "axe" },
+            { char: "戈", eng: "spear" },
+            { char: "攵", eng: "tap" },
+            { char: "网", eng: "net" },
+            { char: "卜", eng: "crack" },
+            { char: "聿", eng: "brush" },
+            { char: "辛", eng: "chisel" },
+            { char: "井", eng: "well" },
+            { char: "臼", eng: "mortar" },
+        ],
+    },
+    {
+        group: "Textile",
+        chars: [
+            { char: "糸", eng: "silk" },
+            { char: "巾", eng: "cloth" },
+            { char: "衣", eng: "shirt" },
+            { char: "包", eng: "wrap" },
+            { char: "冃", eng: "hat" },
+        ],
+    },
+    {
+        group: "Actions",
+        chars: [
+            { char: "立", eng: "stand" },
+            { char: "丮", eng: "catch" },
+            { char: "干", eng: "hunt" },
+            { char: "回", eng: "turn" },
+            { char: "化", eng: "change" },
+            { char: "巴", eng: "grab" },
+            { char: "八", eng: "split" },
         ],
     },
 ];
@@ -81,12 +184,12 @@ for (const group of groups) {
     }
 }
 
-console.log("Flat chars:", flatChars);
+console.log("Flat chars:", flatChars, flatChars.map((c) => c.char).join(""));
 
 function svgChar(char) {
     const id = char;
     return `<svg baseProfile="full" viewBox="0 0 200 200" width="48" height="48">
-                <use href="sprite.svg?1#${id}" xlink:href="sprite.svg#${id}"/>
+                <use href="sprite.svg?12#${id}" xlink:href="sprite.svg#${id}"/>
             </svg>`;
 }
 
