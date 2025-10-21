@@ -88,7 +88,7 @@ const groups = [
             { char: "大", eng: "big" },
             { char: "小", eng: "small" },
             { char: "古", eng: "old" },
-            { char: "疒", eng: "sick" },
+            { char: "疒", eng: "sick", disableBottom: true },
             { char: "丑", eng: "ugly" },
             { char: "甘", eng: "sweet" },
             { char: "白", eng: "white" },
@@ -132,7 +132,7 @@ const groups = [
             { char: "车", eng: "car" },
             { char: "舟", eng: "boat" },
             { char: "丁", eng: "nail" },
-            { char: "门", eng: "door" },
+            { char: "门", eng: "door", disableBottom: true },
             { char: "方", eng: "square" },
             { char: "斗", eng: "ladle" },
             { char: "斤", eng: "axe" },
@@ -189,11 +189,11 @@ console.log("Flat chars:", flatChars, flatChars.map((c) => c.char).join(""));
 function svgChar(char) {
     const id = char;
     return `<svg baseProfile="full" viewBox="0 0 200 200" width="48" height="48">
-                <use href="sprite.svg?12#${id}" xlink:href="sprite.svg#${id}"/>
+                <use href="sprite.svg?14#${id}" xlink:href="sprite.svg#${id}"/>
             </svg>`;
 }
 
-function initTable() {
+function initTable(compounds) {
     const table = document.getElementById("compound-table");
     const thead = table.querySelector("thead");
     const tbody = table.querySelector("tbody");
@@ -241,12 +241,18 @@ function initTable() {
             }
             const cell = document.createElement("td");
             const compoundChar = "⿱" + rowChar.char + colChar.char;
-            if (rowChar.disableTop || colChar.disableBottom) {
+            if (
+                rowChar.disableTop ||
+                colChar.disableBottom ||
+                !(compoundChar in compounds)
+            ) {
                 cell.innerHTML = "";
                 cell.classList.add("disabled");
             } else {
                 const id = compoundChar;
-                cell.innerHTML = svgChar(id);
+                cell.innerHTML =
+                    svgChar(id) +
+                    `<br><small>${compounds[compoundChar]}</small>`;
             }
             row.appendChild(cell);
         }
@@ -254,4 +260,11 @@ function initTable() {
     }
 }
 
-initTable();
+fetch("filtered_semantic_compounds.json")
+    .then((response) => response.json())
+    .then((data) => {
+        initTable(data);
+    })
+    .catch((error) =>
+        console.error("Error fetching filtered compounds:", error)
+    );
