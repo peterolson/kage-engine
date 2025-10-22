@@ -6,3 +6,4 @@ output*/**
 !output/u5f71_serif.svg
 dump_*.txt
 .env
+models
