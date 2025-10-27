@@ -144,6 +144,7 @@ const groups = [
             { char: "辛", eng: "chisel" },
             { char: "井", eng: "well" },
             { char: "臼", eng: "mortar" },
+            { char: "市", eng: "market" },
         ],
     },
     {
